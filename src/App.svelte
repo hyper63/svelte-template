@@ -1,26 +1,29 @@
 <script>
   import router from 'page'
+  import querystring from 'querystring'
   
   import Start from './Start.svelte'
-  import ShowProject from './ShowProject.svelte'
-  import FormTask from './FormTask.svelte'
-  import ShowTask from './ShowTask.svelte'
 
   let page, params, qs
+
+  router('*', parseQS)
   
-  router('/', navigateTo(Start))
-  router('/projects/:id', navigateTo(ShowProject))
-  router('/tasks/new', navigateTo(FormTask))
-  router('/tasks/:id', navigateTo(ShowTask))
+  router('/', navTo(Start))
 
   router.start()
-
-  function navigateTo(Component) {
+  
+  function navTo(Component) {
     return ctx => {
-      page = Component
       params = ctx.params
-      qs = ctx.querystring
+      console.log(ctx)
+      page = Component
     }
   }
+
+  function parseQS(ctx, next) {
+    ctx.qs = querystring.parse(ctx.querystring)
+    next()
+  }
+
 </script>
 <svelte:component this={page} {params} {qs} />
