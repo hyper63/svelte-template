@@ -15,7 +15,7 @@
   function navTo(Component) {
     return ctx => {
       params = ctx.params
-      console.log(ctx)
+      qs = ctx.qs
       page = Component
     }
   }

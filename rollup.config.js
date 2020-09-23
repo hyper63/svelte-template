@@ -16,7 +16,9 @@ export default {
     svelte({
       css: css => css.write('bundle.css')
     }),
-    resolve(),
+    resolve({
+      preferBuiltins: false      
+    }),
     commonjs(),
     !production && livereload()
  ]
